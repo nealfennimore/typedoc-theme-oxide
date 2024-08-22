@@ -1,9 +1,9 @@
 {
-  "name": "typedoc-theme-oxide",
+  "name": "@nfen/typedoc-theme-oxide",
   "version": "0.1.6",
   "description": "A TypeDoc theme looks just like rustdoc.",
   "main": "dist/index.js",
-  "repository": "github:balthild/typedoc-theme-oxide",
+  "repository": "github:nealfennimore/typedoc-theme-oxide",
   "author": "Balthild <ibalthild@gmail.com>",
   "license": "MIT",
   "keywords": [
@@ -27,10 +27,11 @@
     "typedoc": "^0.22.17"
   },
   "scripts": {
-    "build": "node scripts/retrieve-assets.js && rm -rf dist && tsc",
+    "assets": "node scripts/retrieve-assets.js && rm -rf dist",
+    "build": "tsc",
     "example": "cd example && typedoc --options ./typedoc.json",
     "example-deploy": "gh-pages -d ./example/docs",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "npx yarn build"
   },
   "files": [
     "dist",

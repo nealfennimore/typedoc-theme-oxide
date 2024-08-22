@@ -81,6 +81,7 @@ export function hasTypeParameters(
 export function renderTypeParametersSignature(
     typeParameters: readonly TypeParameterReflection[] | undefined
 ): JSX.Element {
+    // if (typeParameters){console.log(typeParameters);};
     return (
         <>
             {!!typeParameters && typeParameters.length > 0 && (
@@ -92,6 +93,7 @@ export function renderTypeParametersSignature(
                             <span class="tsd-signature-type" data-tsd-kind={item.kindString}>
                                 {item.name}
                             </span>
+                            {item.default ? `${item.default} ` : ""}
                         </>
                     ))}
                     <span class="tsd-signature-symbol">{">"}</span>

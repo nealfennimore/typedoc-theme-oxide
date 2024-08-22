@@ -1,5 +1,5 @@
 {
-	"entryPoints": ["monaco.d.ts"],
+	"entryPoints": ["test.ts", "monaco.d.ts"],
 	"out": "./docs",
 	"plugin": "../dist/index.js",
 	"theme": "oxide",

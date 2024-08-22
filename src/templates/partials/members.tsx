@@ -1,5 +1,8 @@
 import {
-    ContainerReflection, DeclarationReflection, DefaultThemeRenderContext as Context, JSX,
+    ContainerReflection,
+    DefaultThemeRenderContext as Context,
+    DeclarationReflection,
+    JSX,
     ReferenceReflection, ReflectionCategory, ReflectionFlag, ReflectionGroup, ReflectionKind,
     SignatureReflection,
 } from 'typedoc';
@@ -117,6 +120,8 @@ function renderMemberDetail(context: Context, member: DeclarationReflection) {
 function renderSignature(context: Context, signature: SignatureReflection, titlePrefix?: string) {
     const srcLink = signature.sources?.[0].url;
 
+    // console.log(signature);
+
     return (
         <details class="rustdoc-toggle method-toggle" open>
             <summary>
@@ -131,7 +136,7 @@ function renderSignature(context: Context, signature: SignatureReflection, title
                         {titlePrefix && (
                             <span>{titlePrefix}{' '}</span>
                         )}
-                        {renderSignatureTitle(context, signature)}
+                        {renderSignatureTitleAndBody(context, signature)}
                     </h4>
                 </section>
             </summary>
@@ -142,12 +147,16 @@ function renderSignature(context: Context, signature: SignatureReflection, title
     );
 }
 
-function renderSignatureTitle(context: Context, signature: SignatureReflection) {
+function renderSignatureTitleAndBody(context: Context, signature: SignatureReflection) {
     const title = context.memberSignatureTitle(signature, {
         hideName: true,
     });
 
-    return transformClassName(title);
+    const body = context.memberSignatureBody(signature, {
+        hideSources: true
+    });
+
+    return [transformClassName(title), transformClassName(body)];
 }
 
 function renderDeclaration(context: Context, decl: DeclarationReflection) {
@@ -172,13 +181,17 @@ function renderDeclaration(context: Context, decl: DeclarationReflection) {
     } else {
         typeSep = decl.flags.isOptional ? '?: ' : ': ';
     }
-
+    
+    // if (decl) {console.log(decl);};
     let defaultValue: JSX.Children = decl.defaultValue;
+    // console.log("defaultValue", defaultValue);
     if (isStringNumberLiteral(defaultValue)) {
         defaultValue = <span class="macro">{decl.defaultValue}</span>;
     } else if (isPrimitiveType(defaultValue)) {
         defaultValue = <span class="primitive">{decl.defaultValue}</span>;
     }
+
+
 
     return (
         <details class="rustdoc-toggle method-toggle" open>
