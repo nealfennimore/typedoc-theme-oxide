@@ -1,6 +1,6 @@
 {
   "name": "@nfen/typedoc-theme-oxide",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "description": "A TypeDoc theme looks just like rustdoc.",
   "main": "dist/index.js",
   "repository": "github:nealfennimore/typedoc-theme-oxide",
@@ -31,7 +31,7 @@
     "build": "tsc",
     "example": "cd example && typedoc --options ./typedoc.json",
     "example-deploy": "gh-pages -d ./example/docs",
-    "prepublishOnly": "npx yarn build"
+    "prepublishOnly": "npx yarn assets && npx yarn build"
   },
   "files": [
     "dist",

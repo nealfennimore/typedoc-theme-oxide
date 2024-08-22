@@ -136,27 +136,30 @@ function renderSignature(context: Context, signature: SignatureReflection, title
                         {titlePrefix && (
                             <span>{titlePrefix}{' '}</span>
                         )}
-                        {renderSignatureTitleAndBody(context, signature)}
+                        {renderSignatureTitle(context, signature)}
                     </h4>
                 </section>
             </summary>
             <div class="docblock">
-                {context.comment(signature)}
+                {renderSignatureBody(context,signature)}
             </div>
         </details>
     );
 }
 
-function renderSignatureTitleAndBody(context: Context, signature: SignatureReflection) {
+function renderSignatureTitle(context: Context, signature: SignatureReflection) {
     const title = context.memberSignatureTitle(signature, {
         hideName: true,
     });
 
+    return transformClassName(title);
+}
+function renderSignatureBody(context: Context, signature: SignatureReflection) {
     const body = context.memberSignatureBody(signature, {
         hideSources: true
     });
 
-    return [transformClassName(title), transformClassName(body)];
+    return transformClassName(body);
 }
 
 function renderDeclaration(context: Context, decl: DeclarationReflection) {
